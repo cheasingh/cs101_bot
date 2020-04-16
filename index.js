@@ -2,6 +2,10 @@ require("dotenv").config();
 const fetch = require("isomorphic-unfetch");
 const TelegramBot = require("node-telegram-bot-api");
 const token = process.env.TELEGRAM_BOT;
+const express = require("express");
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 const bot = new TelegramBot(token, { polling: true });
 const nasaAPI = process.env.NASA_API;
@@ -33,3 +37,10 @@ bot.on("message", (msg) => {
 });
 
 bot.on("polling_error", (err) => console.log(err));
+
+// viewed at http://localhost:3000
+app.get("/", function (req, res) {
+  res.send("Again I Go Unnoticed");
+});
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
